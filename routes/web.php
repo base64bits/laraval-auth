@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,12 +25,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['activity', 'auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
 
-Route::prefix('admin')->middleware(['web','auth:sanctum'])->group(function () {
+Route::prefix('admin')->middleware(['activity', 'web','auth:sanctum'])->group(function () {
 
     Route::get('/', function(Request $request, User $user){
         return redirect(route("admin.users.index"));
